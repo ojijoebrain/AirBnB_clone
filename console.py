@@ -12,9 +12,10 @@ class HBNBCommand(cmd.Cmd):
     """
     This class implements quit, end of line (EOF) and help commands
     """
-    prompt = "hbnb"
+    prompt = "(hbnb) "
 
-    models = {BaseModel, User}
+    models = ["BaseModel", "User", "State", "City", "Amenity",
+              "Place", "Review"]
 
     def do_quit(self, val):
         """ Quit command to exit the program """
@@ -26,7 +27,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_EOF(self, val):
         """ This is the EOF method """
-        print()
+        print('')
         return True
 
     def do_create(self, val):
