@@ -3,6 +3,8 @@
 This is the entry point for the command interpreter
 """
 import cmd
+from models.base_model import BaseModel
+from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
@@ -28,10 +30,10 @@ class HBNBCommand(cmd.Cmd):
         """ Creates a new instance of the basemodel and save to json file """
         if len(val) == 0:
             print("** class name missing **")
-        
         else:
             try:
-                instance = eval(val)()
+                values = val.split()
+                instance = BaseModel()
                 instance.save()
                 print(instance.id)
             except NameError:
@@ -47,14 +49,15 @@ class HBNBCommand(cmd.Cmd):
                 print('** instance id missing **')
             else:
                 try:
-                    instance = eval(values[0]).get(values[1])
-                    if instance:
-                        print(instance)
+                    obj = storage.all()
+                    Key = eval(values[0]).get(values[1])
+                    if key in obj:
+                        print(key)
                     else:
                         print("** no instance found **")
                 except NameError:
                     print("** class doesn't exist **")
-    
+
     def do_destroy(self, val):
         """ deletes an instance of a class using its id"""
         if len(val) == 0:
@@ -65,36 +68,32 @@ class HBNBCommand(cmd.Cmd):
                 print("** instance id missing **")
             else:
                 try:
-                    instances = eval(values[0]).all()
-                    if instances:
-                        instance = instances.get(values[1])
-                        if instance:
-                            del instance
-                            BaseModel.save()
-                        else:
-                            print("** no instance found **")
+                    obj = storage.all()
+                    key = eval(values[0]).get(values[1])
+                    if key in obj:
+                        del instance
+                        storage.save()
                     else:
-                        print("** class doesn't exist **")
+                        print("** no instance found **")
                 except NameError:
                     print("** class doesn't exist **")
 
     def do_all(self, val):
         """ prints all string representation of all instances """
         try:
-            if val:
-                instances = eval(val).all()
+            obj = storage.all()
+            values = val.split()
+            if len(values) == 0:
+                for key, value in obj.items():
+                    print(str(value))
             else:
-                instances = BaseModel.all()
-            if instances:
+                for key, value in obj.items():
+                    if key.split(".")[0] == values[0]:
+                        print(str(value))
                 print([str(instance) for instance in instances])
-            else:
-                print("[]")
         except NameError:
             print("** class doesn't exist **")
 
-    def do_update(self, val):
-        """ 
-    
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
