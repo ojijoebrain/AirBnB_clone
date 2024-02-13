@@ -5,6 +5,7 @@ This is the entry point for the command interpreter
 import cmd
 from models.base_model import BaseModel
 from models import storage
+from models.user import User
 
 
 class HBNBCommand(cmd.Cmd):
@@ -12,6 +13,8 @@ class HBNBCommand(cmd.Cmd):
     This class implements quit, end of line (EOF) and help commands
     """
     prompt = "hbnb"
+    valid_classes = ["BaseModel]", "User"]
+
 
     def do_quit(self, val):
         """ Quit command to exit the program """
@@ -32,7 +35,8 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         else:
             try:
-                values = val.split()
+                values = val.split(f"{commands[0]()}")
+                storage.save()
                 instance = BaseModel()
                 instance.save()
                 print(instance.id)
