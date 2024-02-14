@@ -12,9 +12,16 @@ class HBNBCommand(cmd.Cmd):
     """
     This class implements quit, end of line (EOF) and help commands
     """
+<<<<<<< HEAD
     prompt = "hbnb"
     valid_classes = ["BaseModel]", "User"]
 
+=======
+    prompt = "(hbnb) "
+
+    models = ["BaseModel", "User", "State", "City", "Amenity",
+              "Place", "Review"]
+>>>>>>> 67c617e55efc3fafebfbdbdb40ba96e0e6a4f2a0
 
     def do_quit(self, val):
         """ Quit command to exit the program """
@@ -26,7 +33,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_EOF(self, val):
         """ This is the EOF method """
-        print()
+        print('')
         return True
 
     def do_create(self, val):
@@ -35,10 +42,16 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         else:
             try:
+<<<<<<< HEAD
                 values = val.split(f"{commands[0]()}")
                 storage.save()
                 instance = BaseModel()
                 instance.save()
+=======
+                values = val.split()
+                instance = eval(f"(values[0])()")
+                storage.save()
+>>>>>>> 67c617e55efc3fafebfbdbdb40ba96e0e6a4f2a0
                 print(instance.id)
             except NameError:
                 print("** class doesn't exist **")

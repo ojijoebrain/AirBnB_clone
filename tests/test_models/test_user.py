@@ -60,11 +60,11 @@ class TestUser_instantiation(unittest.TestCase):
         my_date = datetime.today()
         my_date_repr = repr(my_date)
         user1 = User()
-        user1.id = "666666"
+        user1.id = "777777"
         user1.created_at = user1.updated_at = my_date
         user1_str = user1.__str__()
-        self.assertIn("[User] (666666)", user1_str)
-        self.assertIn("'id': '666666'", user1_str)
+        self.assertIn("[User] (777777)", user1_str)
+        self.assertIn("'id': '777777'", user1_str)
         self.assertIn("'created_at': " + my_date_repr, user1_str)
         self.assertIn("'updated_at': " + my_date_repr, user1_str)
 
@@ -75,8 +75,8 @@ class TestUser_instantiation(unittest.TestCase):
     def test_instantiation_with_kwargs(self):
         my_date = datetime.today()
         my_date_iso = my_date.isoformat()
-        user1 = User(id="666", created_at=my_date_iso, updated_at=my_date_iso)
-        self.assertEqual(user1.id, "666")
+        user1 = User(id="777", created_at=my_date_iso, updated_at=my_date_iso)
+        self.assertEqual(user1.id, "777")
         self.assertEqual(user1.created_at, my_date)
         self.assertEqual(user1.updated_at, my_date)
 
@@ -166,10 +166,10 @@ class TestUser_to_dict(unittest.TestCase):
     def test_to_dict_output(self):
         my_date = datetime.today()
         us = User()
-        us.id = "666666"
+        us.id = "777777"
         us.created_at = us.updated_at = my_date
         tdict = {
-            'id': '666666',
+            'id': '777777',
             '__class__': 'User',
             'created_at': my_date.isoformat(),
             'updated_at': my_date.isoformat(),
